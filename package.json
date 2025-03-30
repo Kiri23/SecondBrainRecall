@@ -1,0 +1,20 @@
+{
+  "name": "second-brain-recall",
+  "version": "1.0.0",
+  "description": "Second Brain Recall - File Processing System",
+  "main": "processFiles.js",
+  "scripts": {
+    "start": "node processFiles.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "second-brain",
+    "file-processing",
+    "logging"
+  ],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 

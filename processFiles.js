@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { logger } = require('./lib/loggingSystem');
 
 // Define paths for Second Brain
 const sourceDir = '/Users/christiannogueras/Downloads/Recall_export_2025-03-30T01-43-35';
@@ -31,13 +32,21 @@ function processFile(sourcePath, targetPath) {
         
         if (sourceModTime > targetModTime) {
             fs.copyFileSync(sourcePath, targetPath);
-            console.log(`Updated: ${path.relative(sourceDir, sourcePath)} (newer version)`);
+            logger.info(`Updated file`, {
+                file: path.relative(sourceDir, sourcePath),
+                reason: 'newer version'
+            });
         } else {
-            console.log(`Skipped: ${path.relative(sourceDir, sourcePath)} (target version is newer or same age)`);
+            logger.debug(`Skipped file`, {
+                file: path.relative(sourceDir, sourcePath),
+                reason: 'target version is newer or same age'
+            });
         }
     } else {
         fs.copyFileSync(sourcePath, targetPath);
-        console.log(`Processed: ${path.relative(sourceDir, sourcePath)} (new file)`);
+        logger.info(`Processed new file`, {
+            file: path.relative(sourceDir, sourcePath)
+        });
     }
 }
 
@@ -73,6 +82,11 @@ function processDirectory(sourcePath, targetPath) {
 // Main processing function
 function processFiles() {
     try {
+        logger.info('Starting file processing', {
+            sourceDir,
+            targetDir
+        });
+
         // Create target directory if it doesn't exist
         if (!fs.existsSync(targetDir)) {
             fs.mkdirSync(targetDir, { recursive: true });
@@ -81,10 +95,15 @@ function processFiles() {
         // Start recursive processing from root
         processDirectory(sourceDir, targetDir);
         
-        console.log('\nProcessing completed successfully!');
-        console.log(`Target location: ${targetDir}`);
+        logger.info('Processing completed successfully', {
+            targetDir
+        });
     } catch (error) {
-        console.error('Error processing files:', error);
+        logger.error('Error processing files', {
+            error: error.message,
+            stack: error.stack
+        });
+        throw error;
     }
 }
 
