@@ -1,0 +1,14 @@
+---
+title: JAMstack
+tags: 
+createdAt: Sat Mar 29 2025 19:16:28 GMT-0400 (Atlantic Standard Time)
+updatedAt: Sat Mar 29 2025 19:16:28 GMT-0400 (Atlantic Standard Time)
+---
+
+
+Web development architecture based on client-side JavaScript, APIs, and markup
+
+
+
+## Sources
+- [wikipedia_page](https://en.wikipedia.org/wiki/JAMstack)

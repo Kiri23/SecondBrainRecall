@@ -2,7 +2,7 @@
 title: My Tiny Guide to Shadcn, Radix, and Tailwind
 tags: Programming
 createdAt: Sun Mar 30 2025 01:29:30 GMT-0400 (Atlantic Standard Time)
-updatedAt: Sun Mar 30 2025 01:44:43 GMT-0400 (Atlantic Standard Time)
+updatedAt: Sun Mar 30 2025 01:29:41 GMT-0400 (Atlantic Standard Time)
 ---
 
 
@@ -12,8 +12,6 @@ updatedAt: Sun Mar 30 2025 01:44:43 GMT-0400 (Atlantic Standard Time)
 - Shadcn UI provides reusable components built on top of Radix UI and Tailwind CSS, offering high customizability, and unlike Radix UI, it does not require installation as a dependency, allowing developers to fetch and configure only the needed components.
 - Both Radix UI and Shadcn UI can be used with frameworks that support React, such as [[Next.js]], [[Astro (South Korean band) | Astro]], [[Remix (web framework) | Remix]], and [[Gatsby (software) | Gatsby]], making them versatile options for frontend development.
 - To get started with Shadcn UI, developers can use the command npx shadcn-latest to initialize the setup, and then add particular components as needed, such as buttons or alert dialogs, making it a flexible and efficient solution for building web applications.
-estas son mis notas
-
 
 
 
