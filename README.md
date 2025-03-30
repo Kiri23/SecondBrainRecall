@@ -17,7 +17,7 @@ prevents duplicate content, even when files have different names.
 - Process knowledge bases from Obsidian or other Second Brain tools
 - Clean up duplicate content in your digital notes
 - Keep a single source of truth for your knowledge base
-- Organize exported content from note-taking tools
+- Organize exported content from note-taking tools 
 
 ## Installation
 
