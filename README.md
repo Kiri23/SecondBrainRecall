@@ -1,16 +1,87 @@
 # Second Brain Recall
 
-A file processing system for Second Brain with a flexible logging system.
+A file processing system that helps you manage and deduplicate your Second Brain
+knowledge base. It processes files while keeping your folder structure and
+prevents duplicate content, even when files have different names.
+
+## Features
+
+- 🔄 **Smart Deduplication**: Uses MD5 hashing to detect duplicate content
+- 📁 **Preserves Structure**: Keeps your original folder hierarchy
+- 📝 **Flexible Logging**: Custom logging system with console and file options
+- 🛠️ **CLI Interface**: Command-line interface with interactive prompts
+- 🔍 **Detailed Tracking**: Logs file processing operations and duplicates
+
+## Use Cases
+
+- Process knowledge bases from Obsidian or other Second Brain tools
+- Clean up duplicate content in your digital notes
+- Keep a single source of truth for your knowledge base
+- Organize exported content from note-taking tools
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/SecondBrainRecall.git
+
+# Navigate to the project directory
+cd SecondBrainRecall
+
+# Install dependencies
+yarn install
+
+# Install globally (requires sudo on Unix-based systems)
+sudo npm link
+```
+
+## Usage
+
+You can use Second Brain Recall in two ways:
+
+### As a Binary
+
+```bash
+# Run with default options
+second-brain-recall
+
+# Run with specific source and target directories
+second-brain-recall /path/to/source /path/to/target
+
+# Run with custom logging options
+second-brain-recall --log-level debug --log-format json --log-file ./logs/processing.log
+```
+
+### As a Local Script
+
+```bash
+# Run with default options
+yarn start
+
+# Run with specific source and target directories
+yarn start --source /path/to/source --target /path/to/target
+
+# Run with custom logging options
+yarn start --log-level debug --log-format json --log-file ./logs/processing.log
+```
+
+### CLI Options
+
+- `--source`: Source directory containing your Second Brain files
+- `--target`: Target directory for processed files
+- `--log-level`: Set logging level (error, warn, info, debug)
+- `--log-format`: Choose log format (json or text)
+- `--log-file`: Specify custom log file path
+- `--dry-run`: Preview changes without making them
 
 ## Logging System
 
-The project includes a custom logging system with the following features:
+The project includes a logging system with:
 
-- Multiple transport types (Console and File)
+- Console and file logging
 - Configurable log levels
 - Structured logging with metadata
 - JSON and text format support
-- Easy to extend with new transports
 
 ### Log Levels
 
@@ -19,7 +90,7 @@ The project includes a custom logging system with the following features:
 - `info`: General information about the process
 - `debug`: Detailed information for debugging
 
-### Usage
+### Usage Example
 
 ```javascript
 const { logger } = require("./lib/loggingSystem");
@@ -36,30 +107,6 @@ logger.info("File processed", {
 });
 ```
 
-### Configuration
-
-The logging system can be configured through the following options:
-
-```javascript
-const { Logger } = require("./lib/loggingSystem");
-
-const logger = new Logger({
-    level: "info", // Set minimum log level
-    format: "json", // 'json' or 'text'
-    logFile: "./logs/app.log", // Custom log file path
-});
-```
-
-### Transports
-
-#### Console Transport
-
-Outputs logs to the console with level filtering.
-
-#### File Transport
-
-Writes logs to a file with level filtering and automatic file rotation.
-
 ## Project Structure
 
 ```
@@ -69,21 +116,24 @@ SecondBrainRecall/
 ├── ProcessedFiles/         # Processed files directory
 ├── logs/                   # Log files directory
 ├── processFiles.js         # Main processing script
+├── cli.js                  # CLI entry point
 └── package.json           # Project configuration
 ```
 
-## Installation
+## Contributing
 
-```bash
-yarn install
-```
-
-## Usage
-
-```bash
-yarn start
-```
+Contributions are welcome! Please feel free to submit a Pull Request. For major
+changes, please open an issue first to discuss what you would like to change.
 
 ## License
 
 ISC
+
+## Author
+
+Christian Nogueras
+
+## Acknowledgments
+
+- Inspired by the Second Brain methodology and digital note-taking tools
+- Built with Node.js and Commander.js
