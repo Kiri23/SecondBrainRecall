@@ -2,9 +2,13 @@
   "name": "second-brain-recall",
   "version": "1.0.0",
   "description": "Second Brain Recall - File Processing System",
-  "main": "processFiles.js",
+  "type": "module",
+  "main": "lib/fileProcessor.js",
+  "bin": {
+    "second-brain-recall": "./bin/cli.js"
+  },
   "scripts": {
-    "start": "node processFiles.js",
+    "start": "node bin/cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -15,6 +19,11 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=20.5.0"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "inquirer": "^12.5.0"
   }
-} 
+}

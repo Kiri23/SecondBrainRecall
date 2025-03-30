@@ -16,30 +16,36 @@ function calculateFileHash(filePath) {
     return hashSum.digest('hex');
 }
 
-// Function to get file modification time
-function getFileModTime(filePath) {
-    const stats = fs.statSync(filePath);
-    return stats.mtime.getTime();
-}
-
 // Function to process a single file
-function processFile(sourcePath, targetPath) {
-    const fileHash = calculateFileHash(sourcePath);
+function processFile(sourcePath, targetPath, fileHashes) {
+    const sourceHash = calculateFileHash(sourcePath);
+    const fileName = path.basename(sourcePath);
     
+    // Check if we've seen this hash before
+    if (fileHashes.has(sourceHash)) {
+        const existingFile = fileHashes.get(sourceHash);
+        logger.info(`Skipped duplicate file`, {
+            file: path.relative(sourceDir, sourcePath),
+            duplicateOf: path.relative(sourceDir, existingFile),
+            reason: 'content identical'
+        });
+        return;
+    }
+    
+    // If target exists, check if it's different
     if (fs.existsSync(targetPath)) {
-        const sourceModTime = getFileModTime(sourcePath);
-        const targetModTime = getFileModTime(targetPath);
+        const targetHash = calculateFileHash(targetPath);
         
-        if (sourceModTime > targetModTime) {
+        if (sourceHash !== targetHash) {
             fs.copyFileSync(sourcePath, targetPath);
             logger.info(`Updated file`, {
                 file: path.relative(sourceDir, sourcePath),
-                reason: 'newer version'
+                reason: 'content changed'
             });
         } else {
             logger.debug(`Skipped file`, {
                 file: path.relative(sourceDir, sourcePath),
-                reason: 'target version is newer or same age'
+                reason: 'content unchanged'
             });
         }
     } else {
@@ -48,10 +54,13 @@ function processFile(sourcePath, targetPath) {
             file: path.relative(sourceDir, sourcePath)
         });
     }
+    
+    // Record this hash
+    fileHashes.set(sourceHash, sourcePath);
 }
 
 // Function to process directory recursively
-function processDirectory(sourcePath, targetPath) {
+function processDirectory(sourcePath, targetPath, fileHashes) {
     // Create target directory if it doesn't exist
     if (!fs.existsSync(targetPath)) {
         fs.mkdirSync(targetPath, { recursive: true });
@@ -71,10 +80,10 @@ function processDirectory(sourcePath, targetPath) {
 
         if (stats.isDirectory()) {
             // Recursive call for directories
-            processDirectory(sourceItemPath, targetItemPath);
+            processDirectory(sourceItemPath, targetItemPath, fileHashes);
         } else if (stats.isFile()) {
             // Process files
-            processFile(sourceItemPath, targetItemPath);
+            processFile(sourceItemPath, targetItemPath, fileHashes);
         }
     });
 }
@@ -92,11 +101,15 @@ function processFiles() {
             fs.mkdirSync(targetDir, { recursive: true });
         }
 
+        // Map to track file hashes across all directories
+        const fileHashes = new Map();
+
         // Start recursive processing from root
-        processDirectory(sourceDir, targetDir);
+        processDirectory(sourceDir, targetDir, fileHashes);
         
         logger.info('Processing completed successfully', {
-            targetDir
+            targetDir,
+            uniqueFiles: fileHashes.size
         });
     } catch (error) {
         logger.error('Error processing files', {
