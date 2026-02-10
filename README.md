@@ -1,3 +1,5 @@
+Mejores opciones existen. Archivado por el momento 
+
 # Second Brain Recall
 
 A file processing system that helps you manage and deduplicate your Second Brain
