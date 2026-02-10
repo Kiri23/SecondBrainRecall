@@ -1,8 +1,11 @@
 Mejores opciones existen. Archivado por el momento 
 
 Czkawka — escrito en Rust, multiplataforma, tiene CLI y GUI. Encuentra duplicados, carpetas vacías, imágenes similares, y más. GitHub Es probablemente el más completo y activo.
+
 dedup (Go) — CLI que deduplica archivos en directorios usando hash MD5/SHA, con opciones de --dryrun, --keep, y --merge. GitHub Literalmente lo mismo que tu proyecto hace.
+
 rmlint — herramienta de línea de comandos para encontrar y eliminar archivos duplicados y "lint" como archivos vacíos, symlinks rotos, etc. TecMint
+
 fdupes, jdupes — los clásicos de Linux para deduplicación por hash.
 
 # Second Brain Recall
